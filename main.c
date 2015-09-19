@@ -66,7 +66,8 @@ int main(int argc, char** argv) {
 	printf("The buffer: %s %d\n", buf2 , r);
 	print_stream("Initial:", st->comps);
 
-	return 1;
+	close(st);
+
   struct list* list;
   list = new_list();
 

@@ -41,7 +41,7 @@ stream* open();
  * @param st		: the stream to be written into
  * @param buf		: the buffer to be written into the stream
  * @param buf_size	: the size to be written
- * @return
+ * @return			: the number of bytes written successfully
  */
 int write(stream * st , const char * buf , int buf_size);
 
