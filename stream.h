@@ -11,13 +11,10 @@
 /**
  * This represents one compartment in our stream
  * The buffer is a character array
- * 'start' and 'end' helps us keep track of the valid data in compartment buffer.
- * At any point 'end' - 'start' gives us the size of the valid compartment buffer
+ * At any point size gives us the size of the valid compartment buffer
  */
 struct compartment{
 	char * buffer;
-	int start;
-	int end;
 	int size;
 };
 

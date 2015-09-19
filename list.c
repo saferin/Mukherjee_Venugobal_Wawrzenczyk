@@ -167,8 +167,12 @@ void list_insert_after_index(struct list* list, int idx, void* element) {
 	list->size++;
 }
 
-//Aveek : return is also wrong i think, list->head = pos->next;
+//Aveek : cant be called on an empty list. It will crash;
 void* list_remove_at_index(struct list* list, int idx) {
+	//Suggestion
+	if(list_size(list) ==0)
+		return NULL;
+
 	struct list_entry *prev = NULL;
 	struct list_entry *pos;
 	pos = list->head;

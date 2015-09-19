@@ -31,12 +31,42 @@ void print_list(char* prefix, struct list* list) {
   }
 }
 
+void print_stream(char* prefix, struct list* list) {
+  int size = list_size(list);
+  if (size == 0) {
+    printf("%s: empty list.\n", prefix);
+    return;
+  }
+  printf("%s\n", prefix);
+  for (int i = 0; i < list_size(list); i++) {
+    compartment* s = (compartment*) list_element_at(list, i);
+    printf(" list[%d]= %s size =%d\n", i, s->buffer, s->size);
+  }
+}
 
 int main(int argc, char** argv) {
 
 	stream *st = open();
 
+	char buf2[25];
 
+	write(st , "hello", 5);
+	write(st , "hi", 2);
+	write(st , "hioli", 5);
+	print_stream("Initial:", st->comps);
+	int r = read(st, buf2 , 25);
+	printf("The buffer: %s %d\n", buf2 , r);
+	print_stream("Initial:", st->comps);
+
+	write(st , "hello", 5);
+	write(st , "hi", 2);
+	write(st , "hioli", 5);
+	print_stream("Initial:", st->comps);
+	r = read(st, buf2 , 10);
+	printf("The buffer: %s %d\n", buf2 , r);
+	print_stream("Initial:", st->comps);
+
+	return 1;
   struct list* list;
   list = new_list();
 

@@ -1,4 +1,4 @@
-CONFIG_DEBUG=n
+CONFIG_DEBUG=y
 CONFIG_GPROF=y
 CONFIG_COVERAGE=n
 CONFIG_PERFS=y
@@ -56,8 +56,8 @@ endif
 
 GCC=gcc
 EXEC=sample
-all: list.o main.o tests.o props.o
-	$(GCC) $(LDFLAGS) -o $(EXEC) list.o main.o tests.o props.o $(LIBS)	
+all: list.o main.o tests.o props.o stream.o
+	$(GCC) $(LDFLAGS) -o $(EXEC) list.o main.o tests.o props.o stream.o $(LIBS)	
 
 clean: 
 	rm -f *.o $(EXEC)
@@ -94,3 +94,6 @@ tests.o: tests.c
 
 props.o: props.c
 	$(GCC) -c $(CFLAGS) -o props.o props.c
+	
+stream.o: stream.c stream.h
+	$(GCC) -c $(CFLAGS) -o stream.o stream.c

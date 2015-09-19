@@ -35,8 +35,9 @@ int write(stream * st ,const char * buf , int buf_size){
 	cp->size = buf_size;
 
 	//append the new compartment to the stream list
-	list_append(st->comps, (void*)cp);
+	list_append(st->comps, cp);
 
+	status = buf_size;
 	return status;
 }
 
@@ -49,7 +50,7 @@ int read(stream * st , char * buf , int read_size){
 		return status;
 	}
 
-	while(actual_read < read_size){
+	while(actual_read < read_size && list_size(st->comps)){
 		//remove the first element
 		compartment* cp = (compartment*)list_remove_at_index(st->comps,0);
 
@@ -63,9 +64,10 @@ int read(stream * st , char * buf , int read_size){
 		//calculate how many bytes from the present compartment needs to be copied to the buffer
 		int bytes_to_copy = (yet_to_read > cp->size) ? cp->size : yet_to_read;
 
+		memcpy(buf+actual_read,cp->buffer,bytes_to_copy);
 		//we actually read 'bytes_to_copy' more
 		actual_read += bytes_to_copy;
-		memcpy(buf,cp->buffer,bytes_to_copy);
+
 
 		if(yet_to_read < cp->size){
 			/**
@@ -87,7 +89,7 @@ int read(stream * st , char * buf , int read_size){
 			cp->size = new_size;
 
 			//add back the compartment at front
-			list_append(st->comps , (void*)cp);
+			list_prepend(st->comps , (void*)cp);
 		}
 	}
 
@@ -97,9 +99,12 @@ int read(stream * st , char * buf , int read_size){
 int close(stream *st){
 	int status = STATUS_ERR;
 
-	do{
-
-	}while();
+	while(list_size(st->comps) > 0){
+		//keep removing compartments from the stream
+		compartment *cp = (compartment *)list_remove_at_index(st->comps , 0);
+		free(cp->buffer);
+		free(cp);
+	}
 
 	return status;
 }
