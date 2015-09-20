@@ -34,7 +34,7 @@ extern int list_size(struct list* list);
  * Returns the element at the position passed as argument
  *
  * @param list : the pointer to the list
- * @param i	   : the position
+ * @param i	   : the position, 0 is position of the first element in the list
  */
 extern void* list_element_at(struct list* list, int i);
 
@@ -60,7 +60,7 @@ extern void list_prepend(struct list* list, void* element);
  * @param list		: the pointer to the list
  * @param mark		: the element before which new element should be inserted
  * @param element	: the element to be added
- * @return			: id of mark before which new element was inserted
+ * @return			: id of mark before which new element was inserted, -1 if mark was not found
  */
 extern int list_insert_before_element(struct list* list, void* mark, void* element);
 
@@ -70,7 +70,7 @@ extern int list_insert_before_element(struct list* list, void* mark, void* eleme
  * @param list		: the pointer to the list
  * @param mark		: the element after which new element should be inserted
  * @param element	: the element to be added
- * @return			: id of mark after which new element was inserted if BUGS are not defined
+ * @return			: id of mark after which new element was inserted if BUGS are not defined, -1 if mark was not found
  */
 extern int list_insert_after_element(struct list* list, void* mark, void* element);
 
@@ -78,7 +78,7 @@ extern int list_insert_after_element(struct list* list, void* mark, void* elemen
  * Insert an element before the index i
  *
  * @param list		: the pointer to the list
- * @param i			: the index before which new element should be inserted
+ * @param i			: the index before which new element should be inserted, 0 is the first index
  * @param element	: the element to be added
  */
 extern void list_insert_before_index(struct list* list, int i, void* element);
@@ -87,7 +87,7 @@ extern void list_insert_before_index(struct list* list, int i, void* element);
  * Insert an element after the index i
  *
  * @param list		: the pointer to the list
- * @param i			: the index after which new element should be inserted
+ * @param i			: the index after which new element should be inserted, 0 is the first index
  * @param element	: the element to be added
  */
 extern void list_insert_after_index(struct list* list, int i, void* element);
@@ -96,8 +96,8 @@ extern void list_insert_after_index(struct list* list, int i, void* element);
  * Remove the element at the index i
  *
  * @param list	: the pointer to the list
- * @param i		: the index i
- * @return		: pointer to the removed element
+ * @param i		: the index i, 0 is the first index
+ * @return		: the pointer to the removed element or NULL if list is empty
  */
 extern void* list_remove_at_index(struct list* list, int i);
 
